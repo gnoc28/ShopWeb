@@ -3,6 +3,7 @@ package com.example.ShopDt.controller;
 import com.example.ShopDt.dto.request.CartRequest;
 import com.example.ShopDt.dto.response.CartResponse;
 import com.example.ShopDt.service.CartService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/cart")
+@RequestMapping("api/carts")
 @RequiredArgsConstructor
+@Tag(name = "Cart")
+
 public class CartController {
     final CartService cartService;
 

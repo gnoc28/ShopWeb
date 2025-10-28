@@ -4,6 +4,7 @@ import com.example.ShopDt.dto.request.ProductRequest;
 import com.example.ShopDt.dto.response.ProductResponse;
 import com.example.ShopDt.entity.Product;
 import com.example.ShopDt.service.ProductService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
+@Tag(name = "Product")
+
 public class ProductController {
     private final ProductService productService;
 

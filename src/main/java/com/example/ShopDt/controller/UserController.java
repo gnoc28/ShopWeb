@@ -21,7 +21,9 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/create")
+    @PostMapping("/register")
+    @Operation(summary = "Đăng kí")
+
     public ApiResponse<UserResponse> createUser(@RequestBody RegisterRequest request) {
         try {
             UserResponse user = userService.createUser(request);
@@ -53,32 +55,52 @@ public class UserController {
     //Update user hiện đang đăng nhập
     @PutMapping("/update")
     public ApiResponse<UserResponse> updateUser(@RequestBody UpdateRequest request) {
-      try {
-          UserResponse user = userService.updateUser(request);
-          return ApiResponse.<UserResponse>builder()
-                  .data(user)
-                  .message("Cập nhật thành công")
-                  .success(true)
-                  .build();
-      }
-      catch (Exception e)
-      {
-          return ApiResponse.<UserResponse>builder()
-                  .message("Cập nhật thất bại")
-                  .success(false)
-                  .error(e.getMessage())
-                  .build();
-      }
+        try {
+            UserResponse user = userService.updateUser(request);
+            return ApiResponse.<UserResponse>builder()
+                    .data(user)
+                    .message("Cập nhật thành công")
+                    .success(true)
+                    .build();
+        } catch (Exception e) {
+            return ApiResponse.<UserResponse>builder()
+                    .message("Cập nhật thất bại")
+                    .success(false)
+                    .error(e.getMessage())
+                    .build();
+        }
     }
 
     @GetMapping()
     @Operation(summary = "Lấy danh sách người dùng", description = "Trả về danh sách toàn bộ người dùng trong hệ thống.")
 
-    ApiResponse<List<UserResponse>> getUsers() {
-        return ApiResponse.<List<UserResponse>>builder()
-                .data(userService.getUsers())
-                .build();
+    public ApiResponse<List<UserResponse>> getUsers() {
+        try {
+            List<UserResponse> users = userService.getUsers();
+
+            if (users == null || users.isEmpty()) {
+                return ApiResponse.<List<UserResponse>>builder()
+                        .success(true)
+                        .message("Không có người dùng nào trong hệ thống.")
+                        .data(List.of()) // Trả về mảng rỗng thay vì null
+                        .build();
+            }
+
+            return ApiResponse.<List<UserResponse>>builder()
+                    .success(true)
+                    .message("Lấy danh sách người dùng thành công.")
+                    .data(users)
+                    .build();
+
+        } catch (Exception e) {
+            return ApiResponse.<List<UserResponse>>builder()
+                    .success(false)
+                    .message("Không thể lấy danh sách người dùng.")
+                    .error(e.getMessage())
+                    .data(List.of())
+                    .build();
+        }
+
+
     }
-
-
 }
