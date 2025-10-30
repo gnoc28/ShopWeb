@@ -1,10 +1,7 @@
 package com.example.ShopDt.controller;
 
-import com.example.ShopDt.dto.request.LoginRequest;
-import com.example.ShopDt.dto.request.RegisterRequest;
 import com.example.ShopDt.dto.request.UpdateRequest;
 import com.example.ShopDt.dto.response.ApiResponse;
-import com.example.ShopDt.dto.response.LoginResponse;
 import com.example.ShopDt.dto.response.UserResponse;
 import com.example.ShopDt.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
